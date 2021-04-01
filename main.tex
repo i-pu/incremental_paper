@@ -1,0 +1,54 @@
+
+\documentclass[uplatex, 10pt, a4paper, titlepage]{jsarticle}
+
+% 空白 左右2㎝，上2㎝，下3 ㎝
+\usepackage[top=20truemm,bottom=30truemm,left=20truemm,right=20truemm]{geometry}
+% \usepackage[margin=7mm]{geometry}
+% \usepackage[margin=15mm]{geometry}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{bmpsize}
+\usepackage{url}
+\usepackage{float}
+\usepackage{here}
+\usepackage{booktabs}
+\usepackage{multicol}
+\usepackage{algorithm,algorithmic}
+
+\def\Underline{\setbox0\hbox\bgroup\let\\\endUnderline}
+\def\endUnderline{\vphantom{y}\egroup\smash{\underline{\box0}}\\}
+
+\newcommand{\ttt}[1]{\texttt{#1}}
+
+\begin{document}
+% <https://kosuke128.hatenadiary.jp/entry/2018/11/12/201347>
+% <https://mirror.aclweb.org/acl2016/indexd448.html?article_id=9>
+\bibliographystyle{junsrt_p}
+
+\input{title.tex}
+
+\newpage
+\input{docs/1_abstract.tex}
+\newpage
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+\newpage
+
+\listoftables
+\listoffigures
+
+\input{docs/2_introduction.tex}
+\input{docs/3_theory.tex}
+\input{docs/4_prestudy.tex}
+\input{docs/5_method.tex}
+\input{docs/6_experiment.tex}
+\input{docs/7_conclusion.tex}
+\input{docs/acknowledgments.tex}
+
+\addcontentsline{toc}{section}{\bibname}
+
+\bibliography{docs/refs.bib}
+\end{document}

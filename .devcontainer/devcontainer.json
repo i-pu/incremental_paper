@@ -1,0 +1,18 @@
+{
+    "name": "ubuntu-texlive-ja",
+    "dockerComposeFile": "docker-compose.yml",
+    "extensions": [
+        "formulahendry.terminal",
+        "james-yu.latex-workshop"
+    ],
+    "extensions.autoUpdate": false,
+    "service": "ubuntu-texlive-ja",
+    "workspaceFolder": "/workdir",
+    "shutdownAction": "stopCompose",
+    "forwardPorts": [
+        35556
+    ],
+    "settings": {
+        "latex-workshop.viewer.pdf.internal.port": 35556,
+    },
+}
