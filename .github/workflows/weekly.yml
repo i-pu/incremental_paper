@@ -1,7 +1,8 @@
 on:
-  schedule:
-    # Friday 11:30(JST)
-    - cron: "30 2 * * 5"
+  workflow_dispatch:
+  # schedule:
+  #   # Friday 11:30(JST)
+  #   - cron: "30 2 * * 5"
 
 jobs:
   release:
@@ -12,7 +13,7 @@ jobs:
         uses: 1466587594/get-current-time@v2
         id: current_time
         with:
-          format: "YYYY/MM/DD-HH:mm:ss"
+          format: "YYYY-MM-DD"
           utcOffset: "+09:00"
       - name: Set up Git repository
         uses: actions/checkout@v2
