@@ -18,6 +18,7 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v2
       - name: Install Packages
+        # use TeX2017
         run: |
           tlmgr init-usertree
           tlmgr option repository ftp://tug.org/historic/systems/texlive/2017/tlnet-final
