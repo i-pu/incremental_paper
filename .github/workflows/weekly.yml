@@ -50,10 +50,16 @@ jobs:
           asset_path: ./main.pdf
           asset_name: main.pdf
           asset_content_type: application/pdf
-      - name: Slack Notification
-        uses: rtCamp/action-slack-notify@v2
+      - name: Send file README.md to discord channel
+        uses: sinshutu/upload-to-discord@master
         env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_USERNAME: weekly-report
-          SLACK_ICON_EMOJI: ":bell:"
-          SLACK_MESSAGE: "${{steps.upload_release_asset.outputs.browser_download_url}}"
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with:
+          args: README.md
+      # - name: Slack Notification
+      #   uses: rtCamp/action-slack-notify@v2
+      #   env:
+      #     SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+      #     SLACK_USERNAME: weekly-report
+      #     SLACK_ICON_EMOJI: ":bell:"
+      #     SLACK_MESSAGE: "${{steps.upload_release_asset.outputs.browser_download_url}}"
