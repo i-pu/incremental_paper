@@ -1,14 +1,12 @@
 #!/usr/bin/env perl
-
-$latex                         = 'uplatex %O -synctex=1 -interaction=nonstopmode %S';
-$pdflatex                      = 'pdflatex %O -synctex=1 -interaction=nonstopmode %S';
-$lualatex                      = 'lualatex %O -synctex=1 -interaction=nonstopmode %S';
-$xelatex                       = 'xelatex %O -no-pdf -synctex=1 -shell-escape -interaction=nonstopmode %S';
-$biber                         = 'biber %O --bblencoding=utf8 -u -U --output_safechars %B';
-$bibtex                        = 'upbibtex %O %B';
-$makeindex                     = 'upmendex %O -o %D %S';
-$dvipdf                        = 'dvipdfmx %O -o %D %S';
-$dvips                         = 'dvips %O -z -f %S | convbkmk -u > %D';
-$ps2pdf                        = 'ps2pdf %O %S %D';
-$pdf_mode                      = 3;
-$pdf_previewer               = 'xdg-open';
+$latex            = "uplatex -synctex=1 -interaction=nonstopmode -shell-escape -halt-on-error";
+$latex_silent     = "uplatex -synctex=1 -interaction=batchmode -shell-escape -halt-on-error";
+$lualatex         = "lualatex -synctex=1 -interaction=nonstopmode -shell-escape -halt-on-error";
+$xelatex          = "xelatex -synctex=1 -interaction=nonstopmode -shell-escape -halt-on-error";
+$bibtex           = "upbibtex";
+$biber            = "biber --bblencoding=utf8 -u -U --output_safechars";
+$dvipdf           = "dvipdfmx %O -o %D %S";
+$makeindex        = "upmendex %O -o %D %S";
+$max_repeat       = 5;
+$pdf_previewer    = ":"; # do nothing
+$pvc_view_file_via_temporary = 0;

@@ -1,5 +1,5 @@
 
-\documentclass[platex, 10pt, a4paper, titlepage]{jsarticle}
+\documentclass[uplatex, 10pt, a4paper, titlepage]{jsarticle}
 
 % 空白 左右2㎝，上2㎝，下3 ㎝
 \usepackage[top=20truemm,bottom=30truemm,left=20truemm,right=20truemm]{geometry}
@@ -15,19 +15,21 @@
 \usepackage{here}
 \usepackage{booktabs}
 \usepackage{multicol}
-\usepackage{algorithm,algorithmic}
-
-\def\Underline{\setbox0\hbox\bgroup\let\\\endUnderline}
-\def\endUnderline{\vphantom{y}\egroup\smash{\underline{\box0}}\\}
-
-\newcommand{\ttt}[1]{\texttt{#1}}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage[all]{xy}
 
 \begin{document}
+
+\makeatletter
+\renewcommand{\ALG@name}{アルゴリズム}
+\makeatother
+
 % <https://kosuke128.hatenadiary.jp/entry/2018/11/12/201347>
 % <https://mirror.aclweb.org/acl2016/indexd448.html?article_id=9>
 \bibliographystyle{junsrt_p}
 
-\input{title.tex}
+\input{docs/title.tex}
 
 \newpage
 \input{docs/1_abstract.tex}
@@ -40,15 +42,37 @@
 \listoftables
 \listoffigures
 
-\input{docs/2_introduction.tex}
-\input{docs/3_theory.tex}
-\input{docs/4_prestudy.tex}
-\input{docs/5_method.tex}
-\input{docs/6_experiment.tex}
-\input{docs/7_conclusion.tex}
-\input{docs/acknowledgments.tex}
+\section{theory}
+
+\begin{algorithm}[tb]
+    \caption{配列から最大値を求める関数}
+    \label{alg-max-from-array}
+    \begin{algorithmic}[1]
+        \Function{max\_in\_array}{$array$}
+        \State $max \gets 0$
+        \ForAll {$element \gets array$}
+        \If {$element > max$}
+        \State $max \gets element$
+        \EndIf
+        \EndFor
+        \State \Return $max$
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\ref{alg-max-from-array} です
+
+\cite{vaswani2017attention}
+
+$$
+    \xymatrix{
+        A \ar[r]^{f} \ar[d]_{g} & B \ar[d] \\
+        C \ar[r] & D
+    }
+$$
+
+\bibliography{docs/refs.bib}
 
 \addcontentsline{toc}{section}{\bibname}
 
-\bibliography{docs/refs.bib}
 \end{document}
