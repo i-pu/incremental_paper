@@ -1,4 +1,4 @@
-#!/usr/bin/env perl
+#!/usr/bin/perl
 $latex            = "uplatex -synctex=1 -interaction=nonstopmode -shell-escape -halt-on-error";
 $latex_silent     = "uplatex -synctex=1 -interaction=batchmode -shell-escape -halt-on-error";
 $lualatex         = "lualatex -synctex=1 -interaction=nonstopmode -shell-escape -halt-on-error";

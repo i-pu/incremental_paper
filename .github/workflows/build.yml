@@ -1,12 +1,10 @@
 on:
-  workflow_dispatch:
-  # schedule:
-  #   # Monday 12:00+9
-  #   - cron: "0 3 * * 1"
+  workflow_call:
+
 jobs:
   release:
     runs-on: ubuntu-latest
-    container: korosuke613/ubuntu-texlive-ja-devcontainer
+    container: akashisn/latexmk:full
     name: Compile PDF with Tags
     steps:
       - name: Get Current Time
@@ -17,17 +15,8 @@ jobs:
           utcOffset: "+09:00"
       - name: Set up Git repository
         uses: actions/checkout@v2
-      - name: Install Packages
-        # use TeX2017
-        run: |
-          tlmgr init-usertree
-          tlmgr option repository ftp://tug.org/historic/systems/texlive/2017/tlnet-final
-          tlmgr install algorithms
       - name: Compile Tex File
-        id: compile_tex_file
-        uses: tsukuba-mas/platex-action@main
-        with:
-          LATEX_FILE_NAME: "main.tex"
+        run: mkdir -p out && latexmk -pdfdvi main.tex
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -47,19 +36,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./main.pdf
+          asset_path: ./out/main.pdf
           asset_name: main.pdf
           asset_content_type: application/pdf
-      - name: Send file README.md to discord channel
+      - name: Upload
         uses: sinshutu/upload-to-discord@master
         env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
         with:
-          args: README.md
-      # - name: Slack Notification
-      #   uses: rtCamp/action-slack-notify@v2
-      #   env:
-      #     SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-      #     SLACK_USERNAME: weekly-report
-      #     SLACK_ICON_EMOJI: ":bell:"
-      #     SLACK_MESSAGE: "${{steps.upload_release_asset.outputs.browser_download_url}}"
+          args: ./out/main.pdf
