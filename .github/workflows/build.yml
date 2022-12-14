@@ -1,13 +1,14 @@
 on:
   workflow_call:
+  workflow_dispatch:
 
 jobs:
   release:
     runs-on: ubuntu-latest
     container: akashisn/latexmk:full
-    name: Compile PDF with Tags
+    name: Release PDF
     steps:
-      - name: Get Current Time
+      - name: Get current time
         uses: 1466587594/get-current-time@v2
         id: current_time
         with:
@@ -15,9 +16,18 @@ jobs:
           utcOffset: "+09:00"
       - name: Set up Git repository
         uses: actions/checkout@v2
-      - name: Compile Tex File
-        run: mkdir -p out && latexmk -pdfdvi main.tex
-      - name: Create Release
+        with:
+          fetch-depth: 0
+      # https://github.com/actions/runner/issues/2033
+      - name: Change dir onwership
+        run: chown -R $(id -u):$(id -g) $PWD
+      - name: Create PDF
+        run: latexmk -outdir=out -pdfdvi main.tex
+      - name: Create diff PDF
+        run: |
+          yes | latexdiff-vc --git --flatten -r HEAD~ ./main.tex -d diff
+          latexmk -pdfdvi ./diff/main.tex
+      - name: Create release
         id: create_release
         uses: actions/create-release@v1
         env:
@@ -26,22 +36,33 @@ jobs:
           tag_name: ${{steps.current_time.outputs.formattedTime}}
           release_name: Release ${{steps.current_time.outputs.formattedTime}}
           body: |
-            Compiled PDF Weekly ${{steps.current_time.outputs.formattedTime}}
+            PDF ${{steps.current_time.outputs.formattedTime}}
           draft: false
           prerelease: false
-      - name: Upload Release Asset
-        id: upload_release_asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload PDF to a GitHub Release
+        uses: svenstaro/upload-release-action@2.2.1
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./out/main.pdf
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: out/main.pdf
           asset_name: main.pdf
-          asset_content_type: application/pdf
-      - name: Upload
+          tag: latest
+          overwrite: true
+          prerelease: true
+          body: "main.pdf"
+      - name: Upload diff PDF to a GitHub Release
+        uses: svenstaro/upload-release-action@2.2.1
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: diff/main.pdf
+          asset_name: diff.pdf
+          tag: latest
+          overwrite: true
+          prerelease: true
+          body: "diff.pdf"
+      - name: Upload to Discord
         uses: sinshutu/upload-to-discord@master
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
         with:
-          args: ./out/main.pdf
+          # args: ./out/main.pdf
+          args: ./diff/main.pdf
