@@ -1,11 +1,8 @@
+\documentclass[uplatex, 10pt, a4paper, titlepage,dvipdfmx]{jsarticle}
 
-\documentclass[uplatex, 10pt, a4paper, titlepage]{jsarticle}
-
-% 空白 左右2㎝，上2㎝，下3 ㎝
 \usepackage[top=20truemm,bottom=30truemm,left=20truemm,right=20truemm]{geometry}
-% \usepackage[margin=7mm]{geometry}
-% \usepackage[margin=15mm]{geometry}
-\usepackage[dvipdfmx]{graphicx}
+\usepackage{graphicx}
+\usepackage{color}
 \usepackage{latexsym}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -16,8 +13,13 @@
 \usepackage{booktabs}
 \usepackage{multicol}
 \usepackage{algorithm}
-\usepackage{algpseudocode}
-\usepackage[all]{xy}
+\usepackage[noend]{algpseudocode}
+\usepackage{scalefnt}
+\usepackage{listings,jvlisting}
+\usepackage{framed}
+\usepackage{hyperref}
+
+\bibliographystyle{alpha}
 
 \begin{document}
 
@@ -25,24 +27,11 @@
 \renewcommand{\ALG@name}{アルゴリズム}
 \makeatother
 
-\input{docs/title.tex}
-
-\newpage
-\input{docs/1_abstract.tex}
-\newpage
-
-\setcounter{tocdepth}{2}
-\tableofcontents
-\newpage
-
-\listoftables
-\listoffigures
-
-\section{theory}
+\section{Section}
 
 \begin{algorithm}[tb]
     \caption{配列から最大値を求める関数}
-    \label{alg-max-from-array}
+    \label{alg:max-from-array}
     \begin{algorithmic}[1]
         \Function{max\_in\_array}{$array$}
         \State $max \gets 0$
@@ -56,20 +45,12 @@
     \end{algorithmic}
 \end{algorithm}
 
-\ref{alg-max-from-array} です
+\ref{alg:max-from-array}.
 
 \cite{vaswani2017attention}
 
-$$
-    \xymatrix{
-        A \ar[r]^{f} \ar[d]_{g} & B \ar[d] \\
-        C \ar[r] & D
-    }
-$$
-
-\bibliographystyle{alpha}
-\bibliography{docs/refs.bib}
-
-\addcontentsline{toc}{section}{\bibname}
-
+{
+    \footnotesize
+    \bibliography{docs/refs.bib}
+}
 \end{document}
