@@ -30,22 +30,22 @@
 \section{Section}
 
 \begin{algorithm}[tb]
-    \caption{配列から最大値を求める関数}
-    \label{alg:max-from-array}
+    \caption{配列から最小値を求める関数}
+    \label{alg:min-from-array}
     \begin{algorithmic}[1]
-        \Function{max\_in\_array}{$array$}
-        \State $max \gets 0$
+        \Function{min\_in\_array}{$array$}
+        \State $min \gets 0$
         \ForAll {$element \gets array$}
-        \If {$element > max$}
-        \State $max \gets element$
+        \If {$element < min$}
+        \State $min \gets element$
         \EndIf
         \EndFor
-        \State \Return $max$
+        \State \Return $min$
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
 
-\ref{alg:max-from-array}.
+アルゴリズム \ref{alg:min-from-array} を示す.
 
 \cite{vaswani2017attention}
 
