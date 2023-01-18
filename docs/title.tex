@@ -1,0 +1,52 @@
+\newcommand{\titleja}{修論タイトル}
+\newcommand{\titleen}{Thesis English Title}
+\newcommand{\orgja}{組織}
+\newcommand{\orgen}{organization}
+\newcommand{\studentnum}{0000000}
+\newcommand{\nameja}{名前}
+\newcommand{\nameen}{name}
+\newcommand{\publishedat}{xxxx年x月x日}
+
+\renewcommand{\hrulefill}{\leavevmode%
+    \leaders\hrule depth-2.1pt height 2.5pt\hfill\kern0pt
+}
+\renewcommand{\arraystretch}{1.3}
+\begin{titlepage}
+    \begin{center}
+        \vspace{100truept}
+        {\large \hspace*{\fill}\hrulefill2022年度 修士論文\hrulefill\hspace*{\fill}} \\
+        \vspace{100truept}
+        {\Large \titleja}  \\
+        \vspace{10truept}
+        {\large{\textit{\titleen}}}  \\
+        \vspace{100truept}
+
+        {\large \orgja} \\
+        \vspace{10truept}
+        {\large \textit{\orgen}} \\
+        \vspace{30truept}
+
+        {\large 学籍番号 \studentnum} \\
+        \vspace{10truept}
+        {\large \nameja} \\
+        \vspace{10truept}
+        {\large \nameen} \\
+        \vspace{50truept}
+
+        \begin{table}[h]
+            \centering
+            \begin{tabular}{rrr}
+                主査       &               &  \\
+                副査       &                    &     \\
+                副査       &                    &     \\
+                研究指導補助教員 &  & \\
+            \end{tabular}
+        \end{table}
+
+        \vspace{50truept}
+
+        \publishedat
+    \end{center}
+\end{titlepage}
+
+\renewcommand{\arraystretch}{1}

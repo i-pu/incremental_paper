@@ -1,5 +1,13 @@
-\documentclass[uplatex, 10pt, a4paper, titlepage,dvipdfmx]{jsarticle}
-
+\documentclass[
+    uplatex,
+    11pt,
+    a4j,
+    titlepage,
+    dvipdfmx,
+    oneside,
+    openany
+]{jsbook}
+% 左右2 cm，上2 cm，下3 cm
 \usepackage[top=20truemm,bottom=30truemm,left=20truemm,right=20truemm]{geometry}
 \usepackage{graphicx}
 \usepackage{color}
@@ -14,43 +22,47 @@
 \usepackage{multicol}
 \usepackage{algorithm}
 \usepackage[noend]{algpseudocode}
+% \usepackage[all]{xy}
 \usepackage{scalefnt}
 \usepackage{listings,jvlisting}
 \usepackage{framed}
 \usepackage{hyperref}
 
-\bibliographystyle{alpha}
+% 参考文献スタイル
+\bibliographystyle{IEEEtran}
+
+% ヘッダ・フッタ
+% https://cns-guide.sfc.keio.ac.jp/2001/11/3/3.html
+\pagestyle{plain}
 
 \begin{document}
 
-\makeatletter
-\renewcommand{\ALG@name}{アルゴリズム}
-\makeatother
+\input{docs/title}
 
-\section{Section}
+\pagenumbering{roman}
+\input{docs/abstract}
 
-\begin{algorithm}[tb]
-    \caption{配列から最小値を求める関数}
-    \label{alg:min-from-array}
-    \begin{algorithmic}[1]
-        \Function{min\_in\_array}{$array$}
-        \State $min \gets 0$
-        \ForAll {$element \gets array$}
-        \If {$element < min$}
-        \State $min \gets element$
-        \EndIf
-        \EndFor
-        \State \Return $min$
-        \EndFunction
-    \end{algorithmic}
-\end{algorithm}
+\newpage
 
-アルゴリズム \ref{alg:min-from-array} を示す.
+% 目次
+\setcounter{tocdepth}{2}
+\tableofcontents
+\newpage
 
-\cite{vaswani2017attention}
+\chapter{はじめに}
+\pagenumbering{arabic}
+% 本文
+\input{docs/1_introduction}
 
+% 参考文献
 {
     \footnotesize
     \bibliography{docs/refs.bib}
 }
+
+% 図表一覧
+\newpage
+\listoftables
+\listoffigures
+
 \end{document}

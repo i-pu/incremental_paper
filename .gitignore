@@ -1,3 +1,4 @@
 *.log
+diff/
 out/
 node_modules/
